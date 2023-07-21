@@ -18,8 +18,8 @@ contract PhantomTest is Test {
             moves[i] = Phantom.Move(0, 100, 100);
         }
         phantom.upload(0, moves);
-        assertEq(phantom.retrieve_one(0).length, moves.length);
-        phantom.upload_one(0, Phantom.Move(0, 100, 0));
-        assertEq(phantom.retrieve_one(0).length, moves.length+1);
+        assertEq(phantom.retrieve_self(0).length, moves.length);
+        phantom.upload_self(0, Phantom.Move(0, 100, 0));
+        assertEq(phantom.retrieve_self(0).length, moves.length+1);
     }
 }

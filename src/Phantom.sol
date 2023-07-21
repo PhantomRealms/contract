@@ -5,18 +5,24 @@ contract Phantom {
 
     struct Move {
         uint8 action;
-        uint64 duration;
+        uint32 duration;
         uint64 x_axis;
     }
     
     mapping(address => mapping(uint8 => Move[])) phantom_moves;
     mapping(uint8 => address[]) phantom_users;
 
-    function upload(uint8 world_id, Move[] moves) public {
-        phantom_moves[msg.sender][world_id] = moves;
+    function upload(uint8 world_id, Move[] memory moves) public {
+        for (uint i = 0; i < moves.length; i++) {
+            phantom_moves[msg.sender][world_id].push(moves[i]);
+        }
     }
 
-    function retrieve_one(uint8 world_id) public returns (Move[]) {
+    function upload_one(uint8 world_id, Move memory move) public {
+        phantom_moves[msg.sender][world_id].push(move);
+    }
+
+    function retrieve_one(uint8 world_id) public view returns (Move[] memory) {
         return phantom_moves[msg.sender][world_id];
     }
 }
